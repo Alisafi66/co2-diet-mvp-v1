@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import type { Food } from "@/types/food";
-import type { UserProfile } from "@/types/user";
 import { FOODS_BY_ID } from "@/lib/seed/foods";
 import {
   findHighestCo2MealType,
@@ -11,6 +10,7 @@ import {
   summarizeWeek,
 } from "@/lib/dashboard/summarize";
 import { useMealLogs } from "@/hooks/useMealLogs";
+import { useUserProfile } from "@/hooks/UserProvider";
 import { DailySummaryCard } from "./DailySummaryCard";
 import { QuickLogActions } from "./QuickLogActions";
 import { TodaysMealsList } from "./TodaysMealsList";
@@ -26,16 +26,15 @@ const DEFAULT_TARGETS = {
 
 export interface DashboardProps {
   foodsById?: Record<string, Food>;
-  profile?: UserProfile | null;
   storageMode?: "local" | "synced";
 }
 
 export function Dashboard({
   foodsById: seedFoodsById = FOODS_BY_ID,
-  profile = null,
   storageMode = "local",
 }: DashboardProps) {
   const { logs, customFoods, addMeal, addCustomMeal, hydrated } = useMealLogs();
+  const { profile } = useUserProfile();
 
   const foodsById = useMemo(
     () => ({ ...seedFoodsById, ...customFoods }),
@@ -57,10 +56,14 @@ export function Dashboard({
   const targets = useMemo(
     () => ({
       co2Kg: profile?.dailyCo2BudgetKg ?? DEFAULT_TARGETS.co2Kg,
-      calories: DEFAULT_TARGETS.calories,
-      proteinG: DEFAULT_TARGETS.proteinG,
+      calories: profile?.dailyCalorieTarget ?? DEFAULT_TARGETS.calories,
+      proteinG: profile?.dailyProteinTargetG ?? DEFAULT_TARGETS.proteinG,
     }),
-    [profile?.dailyCo2BudgetKg],
+    [
+      profile?.dailyCo2BudgetKg,
+      profile?.dailyCalorieTarget,
+      profile?.dailyProteinTargetG,
+    ],
   );
 
   const highestCo2MealType = useMemo(

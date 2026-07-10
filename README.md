@@ -120,23 +120,19 @@ Represents an individual food entry.
 
 ## Pages
 
-### Welcome Page
-**URL:** `/`
+### [Welcome Page](https://co2-diet-mvp-v1.vercel.app/)
 
 The initial landing interface directing users to the onboarding sequence.
 
-### Onboarding
-**URL:** `/onboarding`
+### [Onboarding](https://co2-diet-mvp-v1.vercel.app/onboarding)
 
 A two-step flow capturing goals and biometrics. Calculates the user's BMR dynamically and initializes the `rcn_user_profile` in local storage before redirecting to the dashboard.
 
-### Dashboard
-**URL:** `/dashboard`
+### [Dashboard](https://co2-diet-mvp-v1.vercel.app/dashboard)
 
 Reads global state to render real-time tracking modules for carbon footprint (kg CO2e), caloric intake, and protein consumption against the calculated daily targets. Includes a settings modal, tied to requirement FR-012, allowing baseline metrics to be adjusted dynamically.
 
 ### Log Meal
-**URL:** `/log`
 
 A dedicated search interface featuring:
 

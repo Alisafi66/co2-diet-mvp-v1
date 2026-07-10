@@ -178,31 +178,31 @@ npm run dev
 
 Then open `https://dite-app-prototype.vercel.app/` with your browser to see the result.
 
-### 6. Stop the development server
+### 6. Ending the Local Session
 
-To stop the Next.js development server, return to the terminal and press `Ctrl + C`.
+Once testing is complete, return to the terminal and press `Ctrl + C` to shut down the development server cleanly.
 
 ## MVP v1 Verification Summary
 
-The table below reflects the current status of each requirement following the most recent verification session.
+The table below reflects the current status of each requirement following the most recent verification session, along with the key implementation details behind each result.
 
-| # | Requirement | Status |
-|---|---|---|
-| 1 | Account generation / local mode | Partial, deferred by design and acceptable per the PRD |
-| 2 | Calorie, protein, fat, and carb tracking | Done |
-| 3 | Offline food database | Done |
-| 4 | Open Food Facts access | Done |
-| 5 | Barcode scanning | Done, graceful fallback confirmed, real-device decode test pending |
-| 6 | Dashboard | Done |
-| 7 | Weight tracking | Done |
-| 8 | Reminders | Done |
-| 9 | Favorites and recent foods | Done |
-| 10 | CO2 calculation | Done |
-| 11 | English only | Done |
+| # | Requirement | Status | Key Notes |
+|---|---|---|---|
+| 1 | Account generation / local mode | Partial, deferred by design | Local-mode-first approach implemented; persistent account creation intentionally postponed per the PRD |
+| 2 | Calorie, protein, fat, and carb tracking | Done | Targets calculated automatically from onboarding inputs using a gender-neutral BMR formula |
+| 3 | Offline food database | Done | Local storage layer persists all logs, favorites, and custom foods without requiring a backend |
+| 4 | Open Food Facts access | Done | Live search integrated against the 4.5 million product database, with parsed nutritional data feeding directly into logging forms |
+| 5 | Barcode scanning | Done | Camera access and decode logic implemented; graceful fallback confirmed on desktop, real-device decode test still pending |
+| 6 | Dashboard | Done | Real-time tracking modules render carbon footprint, calorie intake, and protein against daily targets |
+| 7 | Weight tracking | Done | Chronological weight logs persist locally and feed the dashboard trend-line graph |
+| 8 | Reminders | Done | Local push notifications configured for meal logging and weigh-in nudges |
+| 9 | Favorites and recent foods | Done | Caching system enables one-click logging of frequently used items |
+| 10 | CO2 calculation | Done | Daily carbon budget derived from caloric targets and linked to each logged item's footprint |
+| 11 | English only | Done | Language scope confirmed as fixed for MVP v1, no localization work required at this stage |
 
-Ten of eleven requirements are fully complete. The only remaining item is the full account and authentication system, which stays deferred in accordance with the PRD's local-mode-first priority rather than representing a gap in execution.
+Ten of eleven requirements are fully complete. The only remaining item is the full account and authentication system, which stays deferred in accordance with the PRD's local-mode-first priority rather than representing a gap in execution. The single open follow-up across the completed items is the real-device barcode decode test, noted under requirement five.
 
-## Barcode Scanning Verification: Step by Step
+## Barcode Scanning Verification:
 
 The following steps document how the barcode scanning fallback behavior was tested and confirmed to be working as intended on a desktop environment without a webcam.
 

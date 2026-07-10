@@ -22,13 +22,28 @@ const LABELS: Record<MealLog["mealType"], string> = {
 interface QuickLogActionsProps {
   addMeal: (meal: MealLog) => void;
   addCustomMeal: (meal: MealLog, food: Food) => void;
+  logs: MealLog[];
+  foodsById: Record<string, Food>;
 }
 
-export function QuickLogActions({ addMeal, addCustomMeal }: QuickLogActionsProps) {
+export function QuickLogActions({
+  addMeal,
+  addCustomMeal,
+  logs,
+  foodsById,
+}: QuickLogActionsProps) {
   const [pendingMealType, setPendingMealType] = useState<MealLog["mealType"] | null>(
     null,
   );
   const [customFoodOpen, setCustomFoodOpen] = useState(false);
+
+  const handleQuickLogSubmit = (meal: MealLog, apiFood?: Food) => {
+    if (apiFood) {
+      addCustomMeal(meal, apiFood);
+    } else {
+      addMeal(meal);
+    }
+  };
 
   return (
     <>
@@ -63,7 +78,9 @@ export function QuickLogActions({ addMeal, addCustomMeal }: QuickLogActionsProps
       <QuickLogModal
         mealType={pendingMealType}
         onClose={() => setPendingMealType(null)}
-        onSubmit={addMeal}
+        onSubmit={handleQuickLogSubmit}
+        logs={logs}
+        foodsById={foodsById}
       />
 
       <CustomFoodModal

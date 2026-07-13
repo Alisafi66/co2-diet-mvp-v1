@@ -1,5 +1,5 @@
 # CO2 Diet Mobile App Prototype
-
+https://docs.google.com/document/d/13cKm2QcHmzMw8dy9ClrrUceUr_wOg2pBtBK_i-zVQcg/edit?usp=sharing
 Proof of concept for a privacy-first, offline-capable mobile application built with Next.js and Tailwind CSS.
 
 The purpose of this project is to provide a functional UI layer and interactive data pipeline for upcoming user interviews and stakeholder validation. The system evaluates a localized state architecture: tracking carbon footprints (CO2), caloric budgets, and macronutrients directly inside the client browser without external database requirements.
